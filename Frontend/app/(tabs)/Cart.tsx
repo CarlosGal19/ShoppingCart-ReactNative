@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 
 import useCart from "../../Hooks/useCart"
 
@@ -6,7 +6,11 @@ import ProductCartCard from "../../components/ProductCartCard";
 
 const Cart = () => {
 
-  const { productsAdded, totalItems, finalPay } = useCart();
+  const { productsAdded, totalItems, finalPay, clearCart } = useCart();
+
+  const handlePress = () => {
+    clearCart();
+  }
 
   return (
     <View>
@@ -24,6 +28,11 @@ const Cart = () => {
             <View>
               <Text>Total Items: {totalItems}</Text>
               <Text>Final Pay: {finalPay}</Text>
+              <Pressable
+                onPress={() => handlePress()}
+              >
+                <Text>Clean Cart</Text>
+              </Pressable>
             </View>
           </>
         )

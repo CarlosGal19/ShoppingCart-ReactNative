@@ -41,6 +41,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
     const clearCart = () => {
         setProductsAdded([]);
+        setFinalPay(0);
+        setTotalItems(0);
     };
 
     return (
