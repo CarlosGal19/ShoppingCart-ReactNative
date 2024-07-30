@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     pressable: {
         padding: 10,
-        backgroundColor: '#3779bb',
+        backgroundColor: '#41aaef',
         marginTop: 10,
         borderRadius: 8,
     },
