@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable, TextInput } from "react-native";
 import { FC } from "react";
 
 interface Product {
@@ -25,9 +25,11 @@ const ProductCard: FC<{ product: Product }> = ({ product }) => {
             <Text style={styles.name}>{product.name}</Text>
             <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             <Text style={styles.stock}>{product.countInStock} left in stock</Text>
-            <Pressable style={styles.pressable} onPress={handlePress}>
-                <Text>Add to Cart</Text>
-            </Pressable>
+            <View style={styles.add}>
+                <Pressable style={styles.pressable} onPress={handlePress}>
+                    <Text>Add to Cart</Text>
+                </Pressable>
+            </View>
         </View>
     );
 };
@@ -68,6 +70,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 8,
     },
+    add: {
+        width: '100%',
+        alignItems: 'center',
+    }
 });
 
 export default ProductCard;
