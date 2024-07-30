@@ -6,7 +6,7 @@ const ProductCartCard = ({ product }: { product: Product }) => {
 
   return (
     <View>
-      <Image source={{ uri: product.image }} />
+      <Image source={{ uri: product.image }} style={{ width: 200, height: 200 }} ></Image>
       <Text>{product.name}</Text>
       <Text>{product.price}</Text>
       <Text>{product.amount}</Text>
