@@ -1,5 +1,7 @@
-import { View, Text, Image, StyleSheet, Pressable, TextInput } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { FC } from "react";
+
+import useCart from "../Hooks/useCart";
 
 interface Product {
     _id: string;
@@ -11,8 +13,10 @@ interface Product {
 
 const ProductCard: FC<{ product: Product }> = ({ product }) => {
 
+    const { addCart, productsAdded } = useCart();
+
     const handlePress = () => {
-        console.log('Product added to cart');
+        addCart(product);
     };
 
     return (
