@@ -13,7 +13,7 @@ interface Product {
 
 const ProductCard: FC<{ product: Product }> = ({ product }) => {
 
-    const { addCart, productsAdded } = useCart();
+    const { addCart } = useCart();
 
     const handlePress = () => {
         addCart(product);

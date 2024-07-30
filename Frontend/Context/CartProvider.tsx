@@ -17,14 +17,20 @@ interface Product {
 
 const CartProvider = ({ children }: CartProviderProps) => {
     const [productsAdded, setProductsAdded] = useState<Product[]>([]);
+    const [totalItems, setTotalItems] = useState<number>(0);
+    const [finalPay, setFinalPay] = useState<number>(0);
 
     const addCart = (product: Product) => {
         const productExist = productsAdded.find(p => p._id === product._id);
         if (productExist) {
             setProductsAdded(productsAdded.map(p => p._id === product._id ? { ...p, amount: p.amount + 1 } : p));
+            setTotalItems(totalItems + 1);
+            setFinalPay(finalPay + product.price * product.amount);
             return;
         }
         product.amount = 1;
+        setTotalItems(totalItems + 1);
+        setFinalPay(finalPay + product.price);
         setProductsAdded(prev => [...prev, product]);
         return;
     };
@@ -38,7 +44,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     };
 
     return (
-        <CartContext.Provider value={{ productsAdded, addCart, removeCart, clearCart }}>
+        <CartContext.Provider value={{ productsAdded, totalItems, finalPay, addCart, removeCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );

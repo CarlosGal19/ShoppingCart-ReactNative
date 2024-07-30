@@ -6,7 +6,7 @@ import ProductCartCard from "../../components/ProductCartCard";
 
 const Cart = () => {
 
-  const { productsAdded } = useCart();
+  const { productsAdded, totalItems, finalPay } = useCart();
 
   return (
     <View>
@@ -15,11 +15,17 @@ const Cart = () => {
       }
       {
         productsAdded && (
-          <FlatList
-            data={productsAdded}
-            renderItem={({ item, index }) => <View><ProductCartCard key={index} product={item}/></View>}
-            keyExtractor={item => item._id}
-          />
+          <>
+            <FlatList
+              data={productsAdded}
+              renderItem={({ item, index }) => <View><ProductCartCard key={index} product={item} /></View>}
+              keyExtractor={item => item._id}
+            />
+            <View>
+              <Text>Total Items: {totalItems}</Text>
+              <Text>Final Pay: {finalPay}</Text>
+            </View>
+          </>
         )
       }
     </View>
