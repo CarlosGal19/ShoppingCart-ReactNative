@@ -2,7 +2,8 @@ import Product from "../models/product.model.js";
 
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find({});
+        // Return images url as image (only first image)
+        const products = await Product.find({}, { _id: 1, name: 1, price: 1, countInStock: 1, image: { $arrayElemAt: ["$images", 0] }, size: 1 });
         return res.status(200).json({ products });
     } catch (error) {
         return res.status(500).json({ message: error.message });
