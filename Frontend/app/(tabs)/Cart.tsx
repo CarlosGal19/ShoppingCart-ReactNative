@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 
 import useCart from "../../Hooks/useCart"
 
-import { Product } from './index'
+import ProductCartCard from "../../components/ProductCartCard";
 
 const Cart = () => {
 
@@ -14,16 +14,16 @@ const Cart = () => {
         !productsAdded.length && <Text>Your cart is empty</Text>
       }
       {
-        productsAdded && productsAdded.map((product: Product) => (
-          <View key={product._id}>
-            <Text>{product.name}</Text>
-            <Text>{product.amount}</Text>
-            <Text>${product.price.toFixed(2)}</Text>
-          </View>
-        ))
+        productsAdded && (
+          <FlatList
+            data={productsAdded}
+            renderItem={({ item, index }) => <View><ProductCartCard key={index} product={item}/></View>}
+            keyExtractor={item => item._id}
+          />
+        )
       }
     </View>
   );
-};
+}
 
 export default Cart;
