@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 
 import ProductCard from "../../components/Product";
 
-interface Product {
+export interface Product {
     _id: string;
     name: string;
     price: number;
     image: string;
     countInStock: number;
+    amount: number;
+    description: string;
 }
 
 const App: FC = () => {
