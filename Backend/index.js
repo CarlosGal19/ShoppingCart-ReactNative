@@ -1,9 +1,10 @@
 import cors from "cors";
 import express from "express";
 import { config } from "dotenv";
-import { MongoClient, ServerApiVersion } from 'mongodb';
 
 import connectDB from "./db.js";
+
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 
@@ -11,22 +12,11 @@ app.use(cors());
 app.use(express.json());
 config();
 
-const URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 5000;
 
-const client = new MongoClient(URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+await connectDB();
 
-await connectDB(client, URI);
-
-app.get("/", (req, res) => {
-    res.send({message: "Hello World!"});
-});
+app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
