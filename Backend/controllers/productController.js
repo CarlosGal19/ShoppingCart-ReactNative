@@ -23,14 +23,15 @@ const getProductById = async (req, res) => {
 
 const createProduct = async (req, res) => {
     try {
-        const { name, price, description, countInStock, images } = req.body;
+        const { name, price, description, countInStock, images, size } = req.body;
         if([name, price, description, countInStock, images].includes(undefined)) return res.status(400).json({ message: "All fields are required" });
         const product = new Product({
             name,
             price,
             description,
             countInStock,
-            images
+            images,
+            size
         });
         await product.save();
         return res.status(200).json({message: 'Product created', product });
