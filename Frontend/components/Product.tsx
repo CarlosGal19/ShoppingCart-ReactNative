@@ -3,6 +3,8 @@ import { FC } from "react";
 
 import useCart from "../Hooks/useCart";
 
+import Amount from "./Amount";
+
 interface Product {
     _id: string;
     name: string;
@@ -30,6 +32,7 @@ const ProductCard: FC<{ product: Product }> = ({ product }) => {
             <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             <Text style={styles.stock}>{product.countInStock} left in stock</Text>
             <View style={styles.add}>
+                <Amount max={product.countInStock} />
                 <Pressable style={styles.pressable} onPress={handlePress}>
                     <Text>Add to Cart</Text>
                 </Pressable>
