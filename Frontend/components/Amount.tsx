@@ -3,8 +3,6 @@ import { View, TextInput, Button, StyleSheet } from 'react-native';
 
 const Amount: FC<{ max: number, amount: number, setAmount: (amount: number) => void }> = ({ max, amount, setAmount }) => {
 
-    console.log(amount);
-
     const handleChange = (text: string) => {
         if (/^\d*$/.test(text)) {
             const num = Number(text);
