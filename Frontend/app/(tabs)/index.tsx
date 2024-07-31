@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center', // Centers content vertically
         alignItems: 'center', // Centers content horizontally
         padding: 10, // Adds padding around the container
-        backgroundColor: '#d5d5d5'
+        backgroundColor: '#f5f5f5'
     },
 });
 
