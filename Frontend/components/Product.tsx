@@ -11,6 +11,7 @@ interface Product {
     price: number;
     image: string;
     countInStock: number;
+    amount: number;
 }
 
 const ProductCard: FC<{ product: Product }> = ({ product }) => {
