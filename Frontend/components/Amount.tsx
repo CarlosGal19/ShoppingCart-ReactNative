@@ -1,25 +1,26 @@
 import { useState, FC } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
+import useAmount from '../Hooks/useAmount'
 
 const NumberInput: FC<{ max: number }> = ({ max }) => {
+
     const [number, setNumber] = useState<number>(1);
+    const { setAmount } = useAmount();
 
     const handleChange = (text: string) => {
         if (/^\d*$/.test(text)) {
             const num = Number(text);
             if (num <= max) {
                 setNumber(num);
-                return
-            }
-            if (text === '') {
-                setNumber(1);
+                setAmount(num);
                 return
             }
             setNumber(max);
+            setAmount(max);
         }
     };
 
-    const handlleBlur = () => {
+    const handleBlur = () => {
         if (number === 0) {
             setNumber(1);
             return;
@@ -33,10 +34,17 @@ const NumberInput: FC<{ max: number }> = ({ max }) => {
             }
             return prev;
         });
+        setAmount((prev) => {
+            if (prev < max) {
+                return prev + 1;
+            }
+            return prev;
+        });
     };
 
     const decrement = () => {
         setNumber((prev) => (prev > 1 ? prev - 1 : 1));
+        setAmount((prev) => (prev > 1 ? prev - 1 : 1));
     };
 
     return (
@@ -47,7 +55,7 @@ const NumberInput: FC<{ max: number }> = ({ max }) => {
                 value={number.toString()}
                 keyboardType="numeric"
                 onChangeText={handleChange}
-                onBlur={() => handlleBlur()}
+                onBlur={() => handleBlur()}
             />
             <Button title="+" onPress={increment} />
         </View>
