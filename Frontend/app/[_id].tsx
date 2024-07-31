@@ -1,5 +1,5 @@
+import React, { FC, useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, ActivityIndicator } from "react-native";
-import { FC, useEffect, useState } from "react";
 import axiosClient from "../axios/axios";
 import { useLocalSearchParams } from "expo-router";
 
@@ -37,60 +37,91 @@ const ProductCard: FC = () => {
     }, [_id]);
 
     if (loading) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
+        return <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />;
     }
 
     if (error) {
-        return <Text>{error}</Text>;
+        return <Text style={styles.errorText}>{error}</Text>;
     }
 
     return (
-        <View>
-            {
-                !prod ? (
-                    <Text>No product found</Text>
-                ) : (
-                    <View style={styles.container}>
-                        <Image
-                            source={{ uri: prod.images[0] }}
-                            style={styles.image}
-                            accessibilityLabel={prod.name}
-                        />
-                        <Text style={styles.name}>{prod.name}</Text>
-                        <Text style={styles.price}>${prod.price}</Text>
-                        <Text style={styles.stock}>{prod.countInStock} left in stock</Text>
-                        <Text>{prod.description}</Text>
-                    </View>
-                )
-            }
+        <View style={styles.container}>
+            {!prod ? (
+                <Text style={styles.errorText}>No product found</Text>
+            ) : (
+                <View style={styles.productContainer}>
+                    <Image
+                        source={{ uri: prod.images[0] }}
+                        style={styles.image}
+                        accessibilityLabel={prod.name}
+                    />
+                    <Text style={styles.name}>{prod.name}</Text>
+                    <Text style={styles.price}>${prod.price}</Text>
+                    <Text style={styles.stock}>{prod.countInStock} left in stock</Text>
+                    <Text style={styles.description}>{prod.description}</Text>
+                </View>
+            )}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#f5f5f5',
+    },
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    errorText: {
+        fontSize: 16,
+        color: 'red',
+        textAlign: 'center',
+        marginVertical: 10,
+    },
+    productContainer: {
+        padding: 20,
         borderWidth: 1,
         borderColor: '#ddd',
-        borderRadius: 8,
-        margin: 10,
+        borderRadius: 10,
         backgroundColor: '#fff',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '90%',
+        maxWidth: 500,
     },
     image: {
         width: 200,
         height: 200,
+        marginBottom: 10,
+        borderRadius: 10,
     },
     name: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: 10,
     },
     price: {
-        fontSize: 16,
+        fontSize: 18,
+        color: '#333',
+        marginVertical: 5,
     },
     stock: {
         fontSize: 16,
         color: 'green',
+        marginVertical: 5,
+    },
+    description: {
+        fontSize: 14,
+        textAlign: 'center',
+        marginVertical: 10,
+        color: '#666',
+        fontFamily: 'Arial', // Cambia 'Arial' por la fuente deseada
     },
 });
 
