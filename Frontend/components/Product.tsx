@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { Link } from "expo-router";
 import { FC } from "react";
 
 import useCart from "../Hooks/useCart";
@@ -27,11 +28,15 @@ const ProductCard: FC<{ product: Product }> = ({ product }) => {
 
     return (
         <View style={styles.container}>
-            <Image
-                source={{ uri: product.image }}
-                style={styles.image}
-                accessibilityLabel={product.name}
-            />
+            <Link asChild href={`/${product._id}`}>
+                <Pressable>
+                    <Image
+                        source={{ uri: product.image }}
+                        style={styles.image}
+                        accessibilityLabel={product.name}
+                    />
+                </Pressable>
+            </Link>
             <Text style={styles.name}>{product.name}</Text>
             <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             <Text style={styles.stock}>{product.countInStock} left in stock</Text>
