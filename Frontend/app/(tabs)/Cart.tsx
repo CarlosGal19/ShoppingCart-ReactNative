@@ -13,7 +13,7 @@ const Cart = () => {
   }
 
   return (
-    <View>
+    <>
       {
         !productsAdded.length && <Text>Your cart is empty</Text>
       }
@@ -37,7 +37,7 @@ const Cart = () => {
           </>
         )
       }
-    </View>
+    </>
   );
 }
 
