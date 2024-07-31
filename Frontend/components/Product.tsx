@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { FC } from "react";
 
 import useCart from "../Hooks/useCart";
+import useAmount from "../Hooks/useAmount";
 
 import Amount from "./Amount";
 
@@ -17,9 +18,11 @@ interface Product {
 const ProductCard: FC<{ product: Product }> = ({ product }) => {
 
     const { addCart } = useCart();
+    const { amount } = useAmount();
 
     const handlePress = () => {
-        addCart(product);
+        product = { ...product, amount };
+        addCart(product, product.countInStock);
     };
 
     return (
