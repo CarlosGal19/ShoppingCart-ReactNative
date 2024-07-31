@@ -1,4 +1,5 @@
 import { View, Text, Image, Pressable } from "react-native";
+import { Link } from "expo-router";
 
 import { Product } from "../app/(tabs)/index";
 
@@ -14,7 +15,9 @@ const ProductCartCard = ({ product }: { product: Product }) => {
 
   return (
     <View>
-      <Image source={{ uri: product.image }} style={{ width: 200, height: 200 }} ></Image>
+      <Link asChild href={`${product._id}`}>
+        <Image source={{ uri: product.image }} style={{ width: 200, height: 200 }} ></Image>
+      </Link>
       <Text>{product.name}</Text>
       <Text>{product.price}</Text>
       <Text>{product.amount}</Text>
