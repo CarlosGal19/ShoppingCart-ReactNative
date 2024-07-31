@@ -1,5 +1,7 @@
 import { View, Text, FlatList, Pressable, StyleSheet } from "react-native";
 
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
 import useCart from "../../Hooks/useCart"
 
 import ProductCartCard from "../../components/ProductCartCard";
@@ -32,7 +34,7 @@ const Cart = () => {
                 onPress={() => handlePress()}
                 style={styles.cleanCartButton}
               >
-                <Text style={styles.cleanCartButtonText}>Clean Cart</Text>
+                <MaterialIcons name="remove-shopping-cart" size={24} color="black" />
               </Pressable>
             </View>
           </>

@@ -1,4 +1,5 @@
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link } from "expo-router";
 
 import { Product } from "../app/(tabs)/index";
@@ -22,7 +23,7 @@ const ProductCartCard = ({ product }: { product: Product }) => {
       <Text style={styles.price}>${product.price}</Text>
       <Text style={styles.amount}>Cantidad: {product.amount}</Text>
       <Pressable style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Remove</Text>
+        <FontAwesome name="remove" size={24} color="black" />
       </Pressable>
     </View>
   );
