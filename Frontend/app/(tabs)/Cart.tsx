@@ -25,7 +25,7 @@ const Cart = () => {
               renderItem={({ item, index }) => <View style={styles.productCard}><ProductCartCard key={index} product={item} /></View>}
               keyExtractor={item => item._id}
             />
-            <View style={styles.summaryContainer}>
+            <View style={styles.containerSummary}>
               <Text style={styles.summaryText}>Total Items: {totalItems}</Text>
               <Text style={styles.summaryText}>Final Pay: {finalPay}</Text>
               <Pressable
@@ -47,6 +47,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#d5d5d5",
+  },
+  containerSummary: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: "#f5f5f5",
+    borderRadius: 10,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   productCard: {
     marginBottom: 20,
