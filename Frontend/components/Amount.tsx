@@ -1,50 +1,34 @@
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
-import useAmount from '../Hooks/useAmount'
 
-const NumberInput: FC<{ max: number }> = ({ max }) => {
+const Amount: FC<{ max: number, amount: number, setAmount: (amount: number) => void }> = ({ max, amount, setAmount }) => {
 
-    const [number, setNumber] = useState<number>(1);
-    const { setAmount } = useAmount();
+    console.log(amount);
 
     const handleChange = (text: string) => {
         if (/^\d*$/.test(text)) {
             const num = Number(text);
             if (num <= max) {
-                setNumber(num);
                 setAmount(num);
-                return
+                return;
             }
-            setNumber(max);
             setAmount(max);
         }
     };
 
     const handleBlur = () => {
-        if (number === 0) {
-            setNumber(1);
+        if (amount === 0) {
+            setAmount(1);
             return;
         }
     }
 
     const increment = () => {
-        setNumber((prev) => {
-            if (prev < max) {
-                return prev + 1;
-            }
-            return prev;
-        });
-        setAmount((prev) => {
-            if (prev < max) {
-                return prev + 1;
-            }
-            return prev;
-        });
+        setAmount(amount < max ? amount + 1 : amount);
     };
 
     const decrement = () => {
-        setNumber((prev) => (prev > 1 ? prev - 1 : 1));
-        setAmount((prev) => (prev > 1 ? prev - 1 : 1));
+        setAmount(amount > 1 ? amount - 1 : 1);
     };
 
     return (
@@ -52,10 +36,10 @@ const NumberInput: FC<{ max: number }> = ({ max }) => {
             <Button title="-" onPress={decrement} />
             <TextInput
                 style={styles.input}
-                value={number.toString()}
+                value={`${amount}`}
                 keyboardType="numeric"
                 onChangeText={handleChange}
-                onBlur={() => handleBlur()}
+                onBlur={handleBlur}
             />
             <Button title="+" onPress={increment} />
         </View>
@@ -86,4 +70,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NumberInput;
+export default Amount;

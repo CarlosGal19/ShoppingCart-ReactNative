@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { FC } from "react";
 
 import useCart from "../Hooks/useCart";
-import useAmount from "../Hooks/useAmount";
 
 import Amount from "./Amount";
 
@@ -17,13 +17,12 @@ interface Product {
 }
 
 const ProductCard: FC<{ product: Product }> = ({ product }) => {
-
+    const [amount, setAmount] = useState<number>(1);
     const { addCart } = useCart();
-    const { amount } = useAmount();
 
     const handlePress = () => {
-        product = { ...product, amount };
-        addCart(product, product.countInStock);
+        const productWithAmount = { ...product, amount };
+        addCart(productWithAmount, product.countInStock);
     };
 
     return (
@@ -41,7 +40,7 @@ const ProductCard: FC<{ product: Product }> = ({ product }) => {
             <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             <Text style={styles.stock}>{product.countInStock} left in stock</Text>
             <View style={styles.add}>
-                <Amount max={product.countInStock} />
+                <Amount max={product.countInStock} amount={amount} setAmount={setAmount} />
                 <Pressable style={styles.pressable} onPress={handlePress}>
                     <Text>Add to Cart</Text>
                 </Pressable>
