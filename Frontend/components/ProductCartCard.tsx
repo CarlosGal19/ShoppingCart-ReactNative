@@ -1,8 +1,16 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 
 import { Product } from "../app/(tabs)/index";
 
+import useCart from "../Hooks/useCart";
+
 const ProductCartCard = ({ product }: { product: Product }) => {
+
+  const { removeCart } = useCart();
+
+  const handlePress = () => {
+    removeCart(product._id);
+  }
 
   return (
     <View>
@@ -10,6 +18,11 @@ const ProductCartCard = ({ product }: { product: Product }) => {
       <Text>{product.name}</Text>
       <Text>{product.price}</Text>
       <Text>{product.amount}</Text>
+      <Pressable
+        onPress={() => handlePress()}
+      >
+        <Text>Remove</Text>
+      </Pressable>
     </View>
   );
 };

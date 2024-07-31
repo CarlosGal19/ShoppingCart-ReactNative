@@ -36,13 +36,18 @@ const CartProvider = ({ children }: CartProviderProps) => {
     };
 
     const removeCart = (productId: string) => {
-        setProductsAdded(productsAdded.filter(product => product._id !== productId));
+        const product = productsAdded.find(p => p._id === productId);
+        setTotalItems(totalItems - product.amount);
+        setFinalPay(finalPay - product.price * product.amount);
+        setProductsAdded(productsAdded.filter(p => p._id !== productId));
+        return;
     };
 
     const clearCart = () => {
         setProductsAdded([]);
         setFinalPay(0);
         setTotalItems(0);
+        return;
     };
 
     return (
