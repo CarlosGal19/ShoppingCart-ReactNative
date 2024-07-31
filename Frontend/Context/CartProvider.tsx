@@ -23,11 +23,20 @@ const CartProvider = ({ children }: CartProviderProps) => {
     const addCart = (product: Product, max: number) => {
         const productExist = productsAdded.find(p => p._id === product._id);
         if (productExist) {
+            // If the addition of the amount of the product exceeds the stock, set the amount to the stock
+            if (productExist.amount + product.amount > product.countInStock) {
+                setProductsAdded(productsAdded.map(p => p._id === product._id ? { ...p, amount: product.countInStock } : p));
+                setTotalItems(totalItems + product.countInStock - productExist.amount);
+                setFinalPay(finalPay + product.price * (product.countInStock - productExist.amount));
+                return;
+            }
+            // If the addition of the amount of the product does not exceed the stock, add the amount to the product
             setProductsAdded(productsAdded.map(p => p._id === product._id ? { ...p, amount: p.amount + product.amount } : p));
             setTotalItems(totalItems + product.amount);
             setFinalPay(finalPay + product.price * product.amount);
             return;
         }
+        // If the product does not exist in the cart, add the product to the cart
         setTotalItems(totalItems + product.amount);
         setFinalPay(finalPay + product.price * product.amount);
         setProductsAdded(prev => [...prev, product]);
