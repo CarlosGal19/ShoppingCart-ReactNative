@@ -20,17 +20,16 @@ const CartProvider = ({ children }: CartProviderProps) => {
     const [totalItems, setTotalItems] = useState<number>(0);
     const [finalPay, setFinalPay] = useState<number>(0);
 
-    const addCart = (product: Product) => {
+    const addCart = (product: Product, max: number) => {
         const productExist = productsAdded.find(p => p._id === product._id);
         if (productExist) {
-            setProductsAdded(productsAdded.map(p => p._id === product._id ? { ...p, amount: p.amount + 1 } : p));
-            setTotalItems(totalItems + 1);
+            setProductsAdded(productsAdded.map(p => p._id === product._id ? { ...p, amount: p.amount + product.amount } : p));
+            setTotalItems(totalItems + product.amount);
             setFinalPay(finalPay + product.price * product.amount);
             return;
         }
-        product.amount = 1;
-        setTotalItems(totalItems + 1);
-        setFinalPay(finalPay + product.price);
+        setTotalItems(totalItems + product.amount);
+        setFinalPay(finalPay + product.price * product.amount);
         setProductsAdded(prev => [...prev, product]);
         return;
     };
