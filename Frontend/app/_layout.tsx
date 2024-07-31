@@ -27,7 +27,7 @@ export default function App() {
                         <Stack
                             screenOptions={{
                                 headerStyle: {
-                                    backgroundColor: "black",
+                                    backgroundColor: "#5facd8",
                                 },
                                 headerTintColor: "white",
                                 headerTitleStyle: {
