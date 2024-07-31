@@ -1,7 +1,8 @@
-import { View, Text, Image, StyleSheet, ActivityIndicator } from "react-native";
 import { FC, useEffect, useState } from "react";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import axiosClient from "../axios/axios";
 import { useLocalSearchParams } from "expo-router";
+import Carousel from "../components/Carousel"; // Asegúrate de importar el componente Carousel
 
 interface Product {
     _id: string;
@@ -50,11 +51,7 @@ const ProductCard: FC = () => {
                 <Text style={styles.errorText}>No product found</Text>
             ) : (
                 <View style={styles.productContainer}>
-                    <Image
-                        source={{ uri: prod.images[0] }}
-                        style={styles.image}
-                        accessibilityLabel={prod.name}
-                    />
+                    <Carousel images={prod.images} />
                     <Text style={styles.name}>{prod.name}</Text>
                     <Text style={styles.price}>${prod.price}</Text>
                     <Text style={styles.stock}>{prod.countInStock} left in stock</Text>
@@ -94,12 +91,6 @@ const styles = StyleSheet.create({
         width: '90%',
         maxWidth: 500,
     },
-    image: {
-        width: 200,
-        height: 200,
-        marginBottom: 10,
-        borderRadius: 10,
-    },
     name: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -121,7 +112,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 10,
         color: '#666',
-        fontFamily: 'Arial', // Cambia 'Arial' por la fuente deseada
+        fontFamily: 'Arial',
     },
 });
 
